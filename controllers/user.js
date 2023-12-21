@@ -5,10 +5,8 @@ import ErrorHandler from "../middlewares/error.js";
 import jwt from "jsonwebtoken"
 import { sendCookie } from "../utils/feature.js"
 
-export const getAllUsers = async(req,res) => {
- 
-}
-export const login = async (req, res) => {
+
+export const login = async (req, res,next) => {
     const {email, password} = req.body;
     const user = await User.findOne({email}).select("+password");
     if(!user) return next(new ErrorHandler("User Not Found",404));
@@ -19,7 +17,7 @@ export const login = async (req, res) => {
 
     sendCookie(user,res,`Welcome back,${user.name}`,200)
 }
-export const register = async(req,res) => {
+export const register = async(req,res,next) => {
     const { name, email, password } = req.body;
     let user = await User.findOne({email});
     if(user) return res.status(404).json({

@@ -8,7 +8,9 @@ export const isAuthenticated = async(req,res,next) =>{
         message:"Login First"
     });
     const decoded = jwt.verify(token,process.env.JWT_SECRET);
-    
+    //creating new property and assigninging it to the user id so that
+    //subsequent pages could use it using "req"
     req.user = await User.findById(decoded._id);
+    
     next();
 }
