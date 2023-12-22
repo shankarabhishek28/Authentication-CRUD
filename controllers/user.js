@@ -51,6 +51,7 @@ export const logout = (req,res) => {
     })
     .json({
         success:true,
+        message:"Logged Out Successfully",
         user:req.user,
     })
 
